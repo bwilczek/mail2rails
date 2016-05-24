@@ -9,6 +9,7 @@ class CreateMessages < ActiveRecord::Migration
       t.text :headers
       t.string :subject
       t.string :inbox
+      t.index :inbox
 
       t.timestamps null: false
     end

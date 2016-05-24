@@ -1,6 +1,6 @@
 require 'pp'
 
-class AcriveRecordSmtpServer < MiniSmtpServer
+class ActiveRecordSmtpServer < MiniSmtpServer
 
   def new_message_event(message_hash)
     row = {}
@@ -18,6 +18,7 @@ class AcriveRecordSmtpServer < MiniSmtpServer
     
     pp row
     puts ''
+    Message.create(row)
 
     #puts "-- From: #{message_hash[:from]}"
     #puts "-- To:   #{message_hash[:to]}"
@@ -27,7 +28,7 @@ class AcriveRecordSmtpServer < MiniSmtpServer
   end
 end
 
-server = AcriveRecordSmtpServer.new(25, "0.0.0.0", 20)
+server = ActiveRecordSmtpServer.new(25, "0.0.0.0", 20)
 server.start
 server.join
 

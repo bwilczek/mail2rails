@@ -1,0 +1,36 @@
+version: '2'
+services:
+  mysql:
+    image: mysql/mysql-server:5.6
+    ports:
+     - "6603:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: mail2rails
+      MYSQL_USER: mail2rails
+      MYSQL_PASSWORD: mail2rails
+  web:
+    build: .
+    environment:
+      SECRET_KEY_BASE: 7a3bdc5743579ebc72af48c68f7090cc216277bbb8c642c152d8b01304588d9b599e871c7e45e77cd7d5d7572e94a29c47378043315a69e37e2fef44ff523448
+      RAILS_SERVE_STATIC_FILES: 'yes'
+      MYSQL_DATABASE: mail2rails
+      MYSQL_USER: mail2rails
+      MYSQL_PASSWORD: mail2rails      
+    command: bash -c "bundle install ; sleep 10 ; RAILS_ENV=production rake db:migrate ; bundle exec rails s -e production -p 3000 -b '0.0.0.0'"
+    ports:
+      - "3000:3000"
+    depends_on:
+      - mysql
+  smtp:
+    build: .
+    environment:
+      MYSQL_DATABASE: mail2rails
+      MYSQL_USER: mail2rails
+      MYSQL_PASSWORD: mail2rails    
+    command: bash -c "bundle install ; bundle exec rails runner -e production bin/smtp_server.rb"
+    ports:
+      - "25:25"
+    depends_on:
+      - web
+      - mysql
