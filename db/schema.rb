@@ -14,16 +14,18 @@
 ActiveRecord::Schema.define(version: 20160523195712) do
 
   create_table "messages", force: :cascade do |t|
-    t.string   "from"
-    t.string   "to"
-    t.string   "raw_from"
-    t.string   "raw_to"
-    t.text     "body"
-    t.text     "headers"
-    t.string   "subject"
-    t.string   "inbox"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.string   "from",       limit: 255
+    t.string   "to",         limit: 255
+    t.string   "raw_from",   limit: 255
+    t.string   "raw_to",     limit: 255
+    t.text     "body",       limit: 65535
+    t.text     "headers",    limit: 65535
+    t.string   "subject",    limit: 255
+    t.string   "inbox",      limit: 255
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
   end
+
+  add_index "messages", ["inbox"], name: "index_messages_on_inbox", using: :btree
 
 end

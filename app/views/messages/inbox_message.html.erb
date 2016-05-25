@@ -1,0 +1,30 @@
+<%= link_to "back to inbox", "/inbox/#{@message.inbox}" %>
+<br /><br />
+<table>
+<tbody>
+
+<tr>
+  <td>Subject:</td>
+  <td><%= @message.subject %></td>
+<tr>
+<tr>
+  <td>From:</td>
+  <td><%= @message.from %></td>
+<tr>
+<tr>
+  <td>To:</td>
+  <td><%= @message.to %></td>
+<tr>
+<tr>
+  <td>Headers:</td>
+  <td>
+    <% JSON.parse(@message.headers).each_pair do |k,v| %>
+      <%= "#{k}: #{v}" %><br />
+    <% end %>
+  </td>
+<tr>
+
+</tbody>
+</table>
+<hr />
+<%= raw @message.body %>

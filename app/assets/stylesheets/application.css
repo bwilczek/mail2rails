@@ -13,3 +13,20 @@
  *= require_tree .
  *= require_self
  */
+
+body {
+  font-family: verdana;
+  font-size: 12px;
+}
+
+tr.odd {
+  background-color: #eeeeee;
+}
+
+tr.even {
+  background-color: #dddddd;
+}
+
+tr:hover {
+  background-color: #ccccee;
+}

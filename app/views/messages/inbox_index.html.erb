@@ -1,0 +1,20 @@
+<h2>Inbox of <%= @messages.first.inbox %></h2>
+
+<table>
+<thead>
+  <th>Subject</th>
+  <th>From</th>
+  <th>Timestamp</th>
+</thead>
+<tbody>
+
+<% @messages.each do |message| %>
+  <tr class="<%= cycle('even', 'odd') %>">
+    <td><%= link_to message.subject, "/inbox/#{message.inbox}/message/#{message.id}" %></td>
+    <td><%= message.from %></td>
+    <td><%= message.created_at %></td>
+  <tr>
+<% end %>
+
+</tbody>
+</table>
